@@ -8,18 +8,25 @@ class toVideo(object):
     def __init__(self, *args):
         filePath = './video'
         for i,j,k in os.walk(filePath):
-            print('---',i,j,k)
+            print('\n====已找到mp4==== \n',i,j,k)
             for item in k:
-                if item.find('mp4'):
+                if 'mp4' in item or 'MP4' in item:
                     self.__videosUrl.append(item)
+        print('\n=======视频',len(self.__videosUrl),'个=======')
 
         filePath = './music'
+        musics = {}
         for i,j,k in os.walk(filePath):
-            print('已经查询到的mp3如下:',k)
+            print('\n=======已经查询到的mp3如下:=======')
+            for n,item in enumerate(k):
+                if 'mp3' in item or 'MP3' in item:
+                    print('序号: ',n,' ======== ',item)
+                    musics[n] = item
+
             # self.__audiourl = str('./music/'+str(k[0]))
         
-        self.__audiourl  = input("请输入要混入的mp3！")
-        self.__audiourl = './music/' + self.__audiourl 
+        key  = input("\n=======请输入要混入的mp3！填入序号即可======== \n") 
+        self.__audiourl = './music/' + musics[int(key)]
         
         for video_url in self.__videosUrl:
             self.video_add_mp4(self.__audiourl \
